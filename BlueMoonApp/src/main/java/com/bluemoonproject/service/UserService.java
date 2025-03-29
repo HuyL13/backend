@@ -77,7 +77,7 @@ public class UserService {
 
         return userMapper.toUserResponse(userRepository.save(user));
     }
-    @PreAuthorize("hasRole('ADMIN')")
+
     public UserResponse getMyInfo(){
         var context=SecurityContextHolder.getContext();
         String name=context.getAuthentication().getName();
@@ -89,20 +89,20 @@ public class UserService {
         userRepository.deleteById(userId);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+
     public List<UserResponse> getUsers(){
         log.info("In method get Users");
         return userRepository.findAll().stream().map(userMapper::toUserResponse).toList();
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+
     public UserResponse getUser(Long id){
         log.info("In method get user by Id");
         return userMapper.toUserResponse(userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("User not found")));
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+
     public User activateAccount(String email) {
         Guest guest = guestRepository.findByEmail(email);
 
