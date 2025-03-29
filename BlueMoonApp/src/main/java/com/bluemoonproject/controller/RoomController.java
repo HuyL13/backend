@@ -68,5 +68,8 @@ public class RoomController {
         return ResponseEntity.ok(roomService.getRoomResponseById(id));
     }
 
-
+     @PutMapping("/{id}")
+    public ResponseEntity<RoomResponse> updateRoom(@PathVariable Long id, @RequestBody RoomRequest roomRequest) {
+        return ResponseEntity.ok(roomService.updateRoom(id, roomRequest));
+    }
 }
