@@ -77,7 +77,7 @@ public class UserService {
 
         return userMapper.toUserResponse(userRepository.save(user));
     }
-    @PreAuthorize("hasRole('ADMIN')")
+
     public UserResponse getMyInfo(){
         var context=SecurityContextHolder.getContext();
         String name=context.getAuthentication().getName();
