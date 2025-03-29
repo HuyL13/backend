@@ -25,7 +25,7 @@ public class RoomController {
                 .build();
 
     }
-
+//
     @PostMapping("/addUser")
     public ApiResponse addUserToRoom(@RequestBody RoomAddRequest roomAddRequest) {
         Room updatedRoom = roomService.addUserToRoom(roomAddRequest.getRoomNumber(), roomAddRequest.getUsername());
@@ -63,4 +63,10 @@ public class RoomController {
             return ResponseEntity.badRequest().body("User not found in the room or room does not exist.");
         }
     }
+    @GetMapping("/{id}")
+    public ResponseEntity<RoomResponse> getRoomById(@PathVariable Long id) {
+        return ResponseEntity.ok(roomService.getRoomResponseById(id));
+    }
+
+
 }
