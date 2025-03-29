@@ -9,11 +9,15 @@ import com.bluemoonproject.entity.Role;
 import com.bluemoonproject.entity.Room;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 
 @Mapper(componentModel = "spring")
 public interface RoomMapper {
 
     Room toRoom(RoomRequest request);
-//
+
     RoomResponse toRoomResponse(Room room);
+
+    @Mapping(target = "id", ignore = true) // ID should not be updated
+    void updateRoomFromRequest(RoomRequest request, @MappingTarget Room room);
 }
