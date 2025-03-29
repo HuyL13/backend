@@ -16,7 +16,8 @@ public enum ErrorCode {//
     UNAUTHORIZED(1007, "You do not have permission", HttpStatus.FORBIDDEN),
     INVALID_DOB(1008, "Must be at least {min}", HttpStatus.BAD_REQUEST),
     ROLE_NOT_FOUND(1009, "Role not found", HttpStatus.NOT_FOUND), // Added ROLE_NOT_FOUND
-    EMAIL_EXISTS(1010,"Email has already been used", HttpStatus.BAD_REQUEST);
+    EMAIL_EXISTS(1010,"Email has already been used", HttpStatus.BAD_REQUEST),
+    ROOM_EXISTS(1011,"Room has already existed", HttpStatus.BAD_REQUEST);
     private final int code;
     private final String message;
     private final HttpStatusCode statusCode;
