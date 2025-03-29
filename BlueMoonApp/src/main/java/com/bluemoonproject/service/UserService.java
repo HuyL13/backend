@@ -68,16 +68,14 @@ public class UserService {
 
         return userMapper.toUserResponse(user);
     }
-    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
+    
     public UserResponse updateUser(Long userId, UserUpdateRequest request) {
         User user = userRepository.findById(userId).orElseThrow(()->new RuntimeException("User not found"));
         userMapper.updateUser(user, request);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        var roles= roleRepository.findAllById(request.getRoles());
-        user.setRoles(new HashSet<>(roles));
+
         return userMapper.toUserResponse(userRepository.save(user));
     }
-
     @PreAuthorize("hasRole('ADMIN')")
     public UserResponse getMyInfo(){
         var context=SecurityContextHolder.getContext();
