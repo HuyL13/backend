@@ -97,6 +97,14 @@ public class RoomService {
 
         return roomMapper.toRoomResponse(room);
     }
+      public RoomResponse updateRoom(Long id, RoomRequest roomRequest) {
+        Room room = roomRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Room not found with id: " + id));
 
+        roomMapper.updateRoomFromRequest(roomRequest, room); // Update fields
+        room = roomRepository.save(room); // Save updated entity
+
+        return roomMapper.toRoomResponse(room); // Return updated response
+    }
 
 }
