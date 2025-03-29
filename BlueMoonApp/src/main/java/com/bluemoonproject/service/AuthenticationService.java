@@ -80,6 +80,7 @@ public class AuthenticationService {
         return AuthenticationResponse.builder()
                 .token(token)
                 .authenticated(true)
+                .roles(user.getRoles())
                 .build();
 
     }

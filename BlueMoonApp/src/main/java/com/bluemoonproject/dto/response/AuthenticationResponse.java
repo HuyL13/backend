@@ -1,7 +1,10 @@
 package com.bluemoonproject.dto.response;
 
+import com.bluemoonproject.entity.Role;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -11,6 +14,7 @@ import lombok.experimental.FieldDefaults;
 public class AuthenticationResponse {
     String token;
     boolean authenticated;
+    Set<Role> roles;
 
 }
 //
