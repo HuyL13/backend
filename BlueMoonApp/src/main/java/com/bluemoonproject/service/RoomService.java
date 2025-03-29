@@ -10,7 +10,8 @@ import com.bluemoonproject.mapper.RoomMapper;
 import com.bluemoonproject.repository.RoomRepository;
 import com.bluemoonproject.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
-import jakarta.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
@@ -28,12 +29,16 @@ public class RoomService {
     private final RoomRepository roomRepository;
     private final UserRepository userRepository;
     private final RoomMapper roomMapper;
+
+    @Transactional
     public RoomResponse postRoom(RoomRequest request) {
 
         Room room = roomMapper.toRoom(request);
         if(roomRepository.existsByRoomNumber(room.getRoomNumber())) throw new AppException(ErrorCode.ROOM_EXISTS);
 
         roomRepository.save(room);
+
+
         return roomMapper.toRoomResponse(room);
 
     }

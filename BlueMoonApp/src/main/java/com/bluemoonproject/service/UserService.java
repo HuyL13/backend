@@ -11,7 +11,8 @@ import com.bluemoonproject.exception.AppException;
 import com.bluemoonproject.exception.ErrorCode;
 import com.bluemoonproject.mapper.UserMapper;
 import com.bluemoonproject.repository.*;
-import jakarta.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
+
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;

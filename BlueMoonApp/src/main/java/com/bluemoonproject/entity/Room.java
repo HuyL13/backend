@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -35,8 +36,9 @@ public class Room {
     Set<Long> userIds;
 
     @ElementCollection
-    @CollectionTable(name="room_fees",joinColumns = @JoinColumn(name="room_id"))
+    @CollectionTable(name="room_fees",
+            joinColumns = @JoinColumn(name="room_id", referencedColumnName = "id"))
     @Column(name="fee_id")
-    Set<Long> feeIds;
+    Set<Long> feeIds=new HashSet<>();
 
 }

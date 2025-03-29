@@ -1,5 +1,6 @@
 package com.bluemoonproject.service;
 
+import com.bluemoonproject.dto.request.FeeUpdateRequest;
 import com.bluemoonproject.entity.Fee;
 import com.bluemoonproject.entity.Room;
 import com.bluemoonproject.enums.FeeStatus;
@@ -9,9 +10,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Slf4j
 @Service
@@ -24,7 +27,7 @@ public class FeeService {
         this.feeRepository = feeRepository;
         this.roomRepository = roomRepository;
     }
-
+    @Transactional
     @PreAuthorize("hasRole('ADMIN')")
     public Fee addFee(String roomNumber, String description, Double amount, LocalDate dueDate) {
         // Check if the room exists
@@ -48,7 +51,7 @@ public class FeeService {
 
         return savedFee;
     }
-
+    @Transactional
     @PreAuthorize("hasRole('ADMIN')")
     public Fee updateFeeStatus(Long feeId, FeeStatus status) {
         Fee fee = feeRepository.findById(feeId)
@@ -57,7 +60,7 @@ public class FeeService {
         fee.setStatus(status);
         return feeRepository.save(fee);
     }
-
+    @Transactional
     @PreAuthorize("hasRole('ADMIN')")
     public void deleteFee(Long feeId) {
         Fee fee = feeRepository.findById(feeId)
@@ -72,6 +75,25 @@ public class FeeService {
 
         // Delete the fee
         feeRepository.deleteById(feeId);
+    }
+
+    @Transactional
+    public Fee updateFee(Long id, FeeUpdateRequest request) {
+        Fee fee = feeRepository.findById(id).orElseThrow(() ->
+                new RuntimeException("Fee with ID " + id + " not found"));
+
+        fee.setRoomNumber(request.getRoomNumber());
+        fee.setDescription(request.getDescription());
+        fee.setAmount(request.getAmount());
+        fee.setDueDate(request.getDueDate());
+        fee.setCreatedAt(LocalDateTime.now());
+
+        return feeRepository.save(fee);
+    }
+
+
+    public List<Fee> getAllFees() {
+        return feeRepository.findAll();
     }
 }
 

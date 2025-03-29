@@ -22,6 +22,7 @@ public class Fee {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 //
+
     private String roomNumber;
     private String description;
 

@@ -1,6 +1,7 @@
 package com.bluemoonproject.controller;
 
 import com.bluemoonproject.dto.request.ApiResponse;
+import com.bluemoonproject.dto.request.FeeUpdateRequest;
 import com.bluemoonproject.entity.Fee;
 import com.bluemoonproject.enums.FeeStatus;
 import com.bluemoonproject.service.FeeService;
@@ -46,7 +47,16 @@ public class FeeController {
         feeService.deleteFee(feeId);
         return ResponseEntity.ok("Fee deleted successfully");
     }
+    @PutMapping("/{id}")
+    public ResponseEntity<Fee> updateFee(@PathVariable Long id, @RequestBody FeeUpdateRequest request) {
+        Fee updatedFee = feeService.updateFee(id, request);
+        return ResponseEntity.ok(updatedFee);
+    }
 
+    @GetMapping
+    public ResponseEntity<List<Fee>> getAllFees() {
+        return ResponseEntity.ok(feeService.getAllFees());
+    }
 
 
 

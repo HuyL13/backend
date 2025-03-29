@@ -8,8 +8,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-03-28T20:39:16+0700",
-    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 21.0.3 (Oracle Corporation)"
+    date = "2025-03-29T15:12:14+0700",
+    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 21.0.6 (Oracle Corporation)"
 )
 @Component
 public class RoomMapperImpl implements RoomMapper {
@@ -42,5 +42,16 @@ public class RoomMapperImpl implements RoomMapper {
         roomResponse.peopleCount( room.getPeopleCount() );
 
         return roomResponse.build();
+    }
+
+    @Override
+    public void updateRoomFromRequest(RoomRequest request, Room room) {
+        if ( request == null ) {
+            return;
+        }
+
+        room.setRoomNumber( request.getRoomNumber() );
+        room.setFloor( request.getFloor() );
+        room.setPeopleCount( request.getPeopleCount() );
     }
 }
