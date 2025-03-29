@@ -5,6 +5,7 @@ import com.bluemoonproject.dto.request.RoomRequest;
 import com.bluemoonproject.dto.response.RoomResponse;
 import com.bluemoonproject.entity.Room;
 import com.bluemoonproject.entity.User;
+import com.bluemoonproject.exception.ErrorCode;
 import com.bluemoonproject.mapper.RoomMapper;
 import com.bluemoonproject.repository.RoomRepository;
 import com.bluemoonproject.repository.UserRepository;
@@ -14,10 +15,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
-
+import com.bluemoonproject.exception.AppException;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
+
 
 @Service
 @RequiredArgsConstructor
@@ -28,12 +31,14 @@ public class RoomService {
     public RoomResponse postRoom(RoomRequest request) {
 
         Room room = roomMapper.toRoom(request);
+        if(roomRepository.existsByRoomNumber(room.getRoomNumber())) throw new AppException(ErrorCode.ROOM_EXISTS);
+
         roomRepository.save(room);
         return roomMapper.toRoomResponse(room);
 
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+//
     @Transactional
     public Room addUserToRoom(String roomNumber, String userName) {
         Room room = roomRepository.findByRoomNumber(roomNumber)
@@ -48,7 +53,7 @@ public class RoomService {
         return roomRepository.save(room);
     }
 //
-    @PreAuthorize("hasRole('ADMIN')")
+
     @Transactional
     public List<String> getAllUsernamesInRoom(String roomNumber) {
         Room room = roomRepository.findByRoomNumber(roomNumber)
@@ -62,7 +67,7 @@ public class RoomService {
                 .collect(Collectors.toList());
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+
     @Transactional
     public void deleteRoom(Long roomId) { roomRepository.deleteById(roomId); }
 
@@ -84,4 +89,14 @@ public class RoomService {
         }
         return false; // Room not found or user not in room
     }
+
+
+    public RoomResponse getRoomResponseById(Long id) {
+        Room room = roomRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Room not found with id: " + id));
+
+        return roomMapper.toRoomResponse(room);
+    }
+
+
 }
