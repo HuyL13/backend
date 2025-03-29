@@ -115,4 +115,10 @@ public class UserController {
         List<Room> rooms = userService.getRoomsForUser();
         return ResponseEntity.ok(rooms);
     }
+
+    @GetMapping("/admin/guest")
+    public ResponseEntity<List<Guest>> getGuestsForUser( ) {
+        List<Guest> guests=guestService.getAllGuests();
+        return ResponseEntity.ok(guests);
+    }
 }
