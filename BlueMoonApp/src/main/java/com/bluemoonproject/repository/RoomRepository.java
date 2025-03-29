@@ -14,4 +14,6 @@ public interface RoomRepository extends JpaRepository<Room, Long> {
     Optional<Room> findByRoomNumber(String roomNumber);
 //
     List<Room> findByUserIdsContaining(Long userId);
+//
+    boolean existsByRoomNumber(String roomNumber);
 }
