@@ -5,9 +5,9 @@ server:
 
 spring:
   datasource:
-    url: ${DB_URL}
-    username: ${DB_USERNAME}
-    password: ${DB_PASSWORD}
+    url: jdbc:mysql://mysql-26ace53e-huythetime1-e755.i.aivencloud.com:22986/defaultdb?ssl-mode=REQUIRED
+    username: avnadmin
+    password: AVNS_sVpC9ImtuDTsoEaeQLb
   jpa:
     hibernate:
       ddl-auto: update
@@ -16,9 +16,8 @@ spring:
   mail:
     host: smtp.gmail.com
     port: 587
-
-    username: ${MAIL_USERNAME}
-    password: ${MAIL_PASSWORD} # Your App Password
+    username: huythetime1@gmail.com  # Your Gmail address
+    password: jocw yheg izmw rfip  # Your App Password
     properties:
       mail:
         smtp:
@@ -27,7 +26,7 @@ spring:
             enable: true
 
 jwt:
-  signerKey: ${JWT_SIGNER_KEY}
+  signerKey: FKYyDnlrdzZFsjM/MMaScBjX4j5nLD+TkE3+7rtPVOc72+A7MOOTWTG4KXTEuf1G4L8/OomvgqIDJbFkYdsiPg==
   valid-duration: 3600
   refreshable-duration: 36000
 
