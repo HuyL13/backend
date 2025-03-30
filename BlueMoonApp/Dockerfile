@@ -9,6 +9,14 @@ WORKDIR /app
 # Sao chép toàn bộ mã nguồn vào container
 
 # Build ứng dụng Spring Boot
+# Sao chép file cấu hình Maven/Gradle (nếu có)
+COPY pom.xml ./
+
+
+# Sao chép toàn bộ mã nguồn vào container
+COPY src ./src
+
+# Build ứng dụng Spring Boot
 
 RUN mvn clean package -DskipTests
 
