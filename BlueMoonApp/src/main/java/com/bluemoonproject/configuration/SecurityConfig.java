@@ -21,13 +21,12 @@ import org.springframework.web.filter.CorsFilter;
 @EnableWebSecurity
 @EnableMethodSecurity
 public class SecurityConfig {
-     private final String[] PUBLIC_ENDPOINTS = {
-            "/users", "/auth/login", "/auth/introspect", "/auth/logout", "/auth/refresh","users/create"
-            ,"/auth/verify-otp", "/auth/request-otp", "/auth/reset-password"
 
+    private final String[] PUBLIC_ENDPOINTS = {
+            "/users", "/auth/login", "/auth/introspect", "/auth/logout", "/auth/refresh",
+            "users/create", "/auth/verify-otp", "/auth/request-otp", "/auth/reset-password"
     };
 
-//
     @Autowired
     private CustomJwtDecoder customJwtDecoder;
 
@@ -36,13 +35,14 @@ public class SecurityConfig {
         httpSecurity
                 .cors(cors -> cors.configurationSource(request -> {
                     CorsConfiguration config = new CorsConfiguration();
-                    config.addAllowedOrigin("http://localhost:3000"); // Allow only frontend
-                    config.addAllowedMethod("*"); // Allow all HTTP methods
+                    config.addAllowedOrigin("http://localhost:3000"); // Allow frontend
+                    config.addAllowedMethod("*"); // Allow all methods (GET, POST, OPTIONS, etc.)
                     config.addAllowedHeader("*"); // Allow all headers
-                    config.setAllowCredentials(true); // Required if frontend sends cookies or Authorization headers
+                    config.setAllowCredentials(true); // Required if frontend sends cookies or auth headers
                     return config;
                 }))
                 .authorizeHttpRequests(request -> request
+                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll() // Allow OPTIONS requests
                         .requestMatchers(HttpMethod.POST, PUBLIC_ENDPOINTS).permitAll()
                         .requestMatchers("/admin", "/users/admin").hasRole("ADMIN")
                         .anyRequest().authenticated())
@@ -55,17 +55,15 @@ public class SecurityConfig {
         return httpSecurity.build();
     }
 
-
-
     @Bean
     JwtAuthenticationConverter jwtAuthenticationConverter() {
-        JwtGrantedAuthoritiesConverter jwtGrantedAuthoritiesConverter = new JwtGrantedAuthoritiesConverter();
-        jwtGrantedAuthoritiesConverter.setAuthorityPrefix("");
+        JwtGrantedAuthoritiesConverter grantedAuthoritiesConverter = new JwtGrantedAuthoritiesConverter();
+        grantedAuthoritiesConverter.setAuthorityPrefix(""); // Không thêm prefix mặc định
 
-        JwtAuthenticationConverter jwtAuthenticationConverter = new JwtAuthenticationConverter();
-        jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(jwtGrantedAuthoritiesConverter);
+        JwtAuthenticationConverter authenticationConverter = new JwtAuthenticationConverter();
+        authenticationConverter.setJwtGrantedAuthoritiesConverter(grantedAuthoritiesConverter);
 
-        return jwtAuthenticationConverter;
+        return authenticationConverter;
     }
 
     @Bean
