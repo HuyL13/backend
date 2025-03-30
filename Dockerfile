@@ -9,7 +9,9 @@ WORKDIR /app
 # Sao chép toàn bộ mã nguồn vào container
 
 # Build ứng dụng Spring Boot
-RUN ./mvnw clean package -DskipTests
+RUN apt-get update && apt-get install -y maven
+RUN mvn clean package -DskipTests
+
 
 # Xuất cổng 8080 (hoặc cổng bạn đã cấu hình)
 EXPOSE 22986
