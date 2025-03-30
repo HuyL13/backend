@@ -5,9 +5,6 @@ FROM eclipse-temurin:21-jdk-alpine
 WORKDIR /app
 
 # Sao chép file cấu hình Maven/Gradle (nếu có)
-COPY pom.xml ./
-COPY mvnw ./
-COPY .mvn .mvn
 
 # Sao chép toàn bộ mã nguồn vào container
 
