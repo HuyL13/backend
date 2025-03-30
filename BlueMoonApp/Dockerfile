@@ -14,7 +14,7 @@ COPY pom.xml ./
 
 
 # Sao chép toàn bộ mã nguồn vào container
-COPY src ./src
+COPY src ./BlueMoonApp/src
 
 # Build ứng dụng Spring Boot
 
