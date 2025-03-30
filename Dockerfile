@@ -10,7 +10,6 @@ COPY mvnw ./
 COPY .mvn .mvn
 
 # Sao chép toàn bộ mã nguồn vào container
-COPY src ./src
 
 # Build ứng dụng Spring Boot
 RUN ./mvnw clean package -DskipTests
