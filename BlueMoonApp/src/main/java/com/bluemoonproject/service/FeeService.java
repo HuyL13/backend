@@ -51,8 +51,7 @@ public class FeeService {
 
         return savedFee;
     }
-    @Transactional
-    @PreAuthorize("hasRole('ADMIN')")
+
     public Fee updateFeeStatus(Long feeId, FeeStatus status) {
         Fee fee = feeRepository.findById(feeId)
                 .orElseThrow(() -> new RuntimeException("Fee not found with id: " + feeId));
@@ -60,15 +59,14 @@ public class FeeService {
         fee.setStatus(status);
         return feeRepository.save(fee);
     }
-    @Transactional
-    @PreAuthorize("hasRole('ADMIN')")
+
     public void deleteFee(Long feeId) {
         Fee fee = feeRepository.findById(feeId)
                 .orElseThrow(() -> new RuntimeException("Fee not found with id: " + feeId));
 
-        // Remove the fee ID from the associated room
+        //Remove the fee ID from the associated room
         Room room = roomRepository.findByRoomNumber(fee.getRoomNumber())
-                .orElseThrow(() -> new RuntimeException("Room not found with number: " + fee.getRoomNumber()));
+               .orElseThrow(() -> new RuntimeException("Room not found with number: " + fee.getRoomNumber()));
 
         room.getFeeIds().remove(feeId);
         roomRepository.save(room);
