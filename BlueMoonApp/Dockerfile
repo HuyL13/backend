@@ -25,4 +25,4 @@ ENV SPRING_DATASOURCE_USERNAME=${SPRING_DATASOURCE_USERNAME}
 ENV SPRING_DATASOURCE_PASSWORD=${SPRING_DATASOURCE_PASSWORD}
 
 # Lệnh chạy ứng dụng
-CMD ["java", "-jar", "target/your-app-name.jar"]
+CMD ["java", "-jar", "target/BlueMoonApp-1.0-SNAPSHOT.jar"]
