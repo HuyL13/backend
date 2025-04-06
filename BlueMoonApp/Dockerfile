@@ -1,34 +1,28 @@
-# Sử dụng Java 17 làm base image
+# Sử dụng Java 21 làm base image (eclipse-temurin là ổn)
 FROM eclipse-temurin:21-jdk-alpine
 
-# Đặt thư mục làm việc trong container
+# Cài đặt Maven (Alpine không có sẵn Maven)
+RUN apk add --no-cache maven
+
+# Đặt thư mục làm việc
 WORKDIR /app
 
-# Sao chép file cấu hình Maven/Gradle (nếu có)
+# Sao chép file cấu hình Maven
+COPY pom.xml .
 
-# Sao chép toàn bộ mã nguồn vào container
+# Sao chép toàn bộ mã nguồn
+COPY src ./src
 
-# Build ứng dụng Spring Boot
-# Sao chép file cấu hình Maven/Gradle (nếu có)
-COPY pom.xml ./
-
-
-# Sao chép toàn bộ mã nguồn vào container
-COPY src ./BlueMoonApp/src
-
-# Build ứng dụng Spring Boot
-
+# Biên dịch ứng dụng
 RUN mvn clean package -DskipTests
 
+# Xuất cổng ứng dụng
+EXPOSE 8080
 
-# Xuất cổng 8080 (hoặc cổng bạn đã cấu hình)
-EXPOSE 22986
-
-# Cấu hình biến môi trường
+# Biến môi trường (Render sẽ gán giá trị thực tế ở dashboard)
 ENV SPRING_DATASOURCE_URL=${SPRING_DATASOURCE_URL}
 ENV SPRING_DATASOURCE_USERNAME=${SPRING_DATASOURCE_USERNAME}
 ENV SPRING_DATASOURCE_PASSWORD=${SPRING_DATASOURCE_PASSWORD}
-ENV SERVER_PORT=22986
 
-# Lệnh để chạy ứng dụng Spring Boot
-CMD ["java", "-jar", "target/*.jar"]
+# Lệnh chạy ứng dụng
+CMD ["java", "-jar", "target/your-app-name.jar"]
