@@ -1,5 +1,5 @@
 package com.bluemoonproject.enums;
 
-public enum ComplainStatus {
+public enum Status{
     RESOLVED, IN_PROGRESS, WAITING
 }
