@@ -17,7 +17,7 @@ COPY src ./src
 RUN mvn clean package -DskipTests
 
 # Xuất cổng ứng dụng
-EXPOSE 8080
+EXPOSE 22986
 
 # Biến môi trường (Render sẽ gán giá trị thực tế ở dashboard)
 ENV SPRING_DATASOURCE_URL=${SPRING_DATASOURCE_URL}
