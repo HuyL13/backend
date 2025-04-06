@@ -1,5 +1,6 @@
 package com.bluemoonproject.entity;
 
+import com.bluemoonproject.enums.AnnounceType;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -12,12 +13,14 @@ import java.util.Set;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
-public class Role {
+public class Announcement {
     @Id
-    String name;
-//
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     String description;
 
-    @ManyToMany
-    Set<Permission> permissions;
+    @Enumerated(EnumType.STRING)
+    private AnnounceType type;
+
 }
