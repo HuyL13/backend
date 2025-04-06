@@ -2,14 +2,18 @@ package com.bluemoonproject.controller;
 
 import com.bluemoonproject.dto.request.ApiResponse;
 import com.bluemoonproject.dto.request.FeeUpdateRequest;
+import com.bluemoonproject.dto.request.FeeUploadRequest;
 import com.bluemoonproject.entity.Fee;
 import com.bluemoonproject.enums.FeeStatus;
 import com.bluemoonproject.service.FeeService;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -58,6 +62,20 @@ public class FeeController {
         return ResponseEntity.ok(feeService.getAllFees());
     }
 
+    @PostMapping("/upload")
+    public ResponseEntity<?> uploadFees(
+            @Valid @ModelAttribute FeeUploadRequest dto,
+            @RequestParam("file") MultipartFile file) {
 
+        try {
+            feeService.createFeesFromExcel(dto, file);
+            return ResponseEntity.ok("Fees created successfully.");
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body("Dữ liệu không hợp lệ: " + e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Lỗi hệ thống: " + e.getMessage());
+        }
+    }
 
 }
