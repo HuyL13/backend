@@ -12,6 +12,11 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
+  task:
+    scheduling:
+      pool:
+        size: 2
+
 
   mail:
     host: smtp.gmail.com
