@@ -1,5 +1,5 @@
 package com.bluemoonproject.enums;
 
-public class ComplainTopic {
+public enum ComplainTopic {
    FACILITY, FEE, COMMUNITY, ENVIRONMENT, SECURITY
 }
