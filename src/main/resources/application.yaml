@@ -5,10 +5,10 @@ server:
 
 spring:
   datasource:
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://mysql-26ace53e-huythetime1-e755.i.aivencloud.com:22986/defaultdb?ssl-mode=REQUIRED
-    username: avnadmin
-    password: AVNS_sVpC9ImtuDTsoEaeQLb
   jpa:
     hibernate:
       ddl-auto: update
