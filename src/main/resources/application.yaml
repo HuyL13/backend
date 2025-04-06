@@ -5,6 +5,7 @@ server:
 
 spring:
   datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://mysql-26ace53e-huythetime1-e755.i.aivencloud.com:22986/defaultdb?ssl-mode=REQUIRED
     username: avnadmin
     password: AVNS_sVpC9ImtuDTsoEaeQLb
