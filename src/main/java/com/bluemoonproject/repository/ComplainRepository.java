@@ -1,9 +1,9 @@
 package com.bluemoonproject.repository;
 
-import com.bluemoonproject.entity.Announcement;
+import com.bluemoonproject.entity.Complain;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface AnnouncementRepository extends JpaRepository<Announcement, Long> {
+public interface ComplainRepository extends JpaRepository<Complain, Long> {
 }
