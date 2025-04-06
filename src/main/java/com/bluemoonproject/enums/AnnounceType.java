@@ -1,6 +1,6 @@
 package com.bluemoonproject.enums;
 
-public enum FeeStatus {
-    PAID,UNPAID
+public enum AnnounceType {
+    WARNING, INFORMATION
 }
 //
