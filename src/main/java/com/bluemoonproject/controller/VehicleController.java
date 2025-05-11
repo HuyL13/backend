@@ -58,5 +58,10 @@ public class VehicleController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
+    @DeleteMapping("/{vehicleId}")
+    public ResponseEntity<Void> deleteVehicle(@PathVariable Long vehicleId) {
+        parkingLotService.deleteVehicle(vehicleId);
+        return ResponseEntity.noContent().build(); // 204 No Content
+    }
 }
 

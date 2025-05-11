@@ -151,7 +151,9 @@ public class ParkingLotService {
 
         return lot;
     }
-
+    public void deleteVehicle(Long vehicleId) {
+        vehicleRepository.deleteById(vehicleId);
+    }
 
     public List<ParkingLot> getAllParkingLots() {
         return parkingLotRepository.findAll();
