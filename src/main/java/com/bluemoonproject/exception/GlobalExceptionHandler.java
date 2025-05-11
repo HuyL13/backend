@@ -73,7 +73,7 @@ public class GlobalExceptionHandler {
                 message = errorCode.getMessage();
             } catch (IllegalArgumentException e) {
                 // Nếu không phải key của enum, ghi log và dùng thông điệp gốc
-                log.error("Unknown ErrorCode key: {}", defaultMessage, e);
+                log.error("Hãy thử lại!", defaultMessage, e);
                 message = defaultMessage;
             }
         }
