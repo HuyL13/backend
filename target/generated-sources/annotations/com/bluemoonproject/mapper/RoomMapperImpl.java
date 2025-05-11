@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-04-06T11:25:25+0700",
+    date = "2025-05-11T09:21:13+0700",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 21.0.6 (Oracle Corporation)"
 )
 @Component
@@ -25,6 +25,10 @@ public class RoomMapperImpl implements RoomMapper {
         room.roomNumber( request.getRoomNumber() );
         room.floor( request.getFloor() );
         room.peopleCount( request.getPeopleCount() );
+        room.residentCount( request.getResidentCount() );
+        room.area( request.getArea() );
+        room.roomType( request.getRoomType() );
+        room.status( request.getStatus() );
 
         return room.build();
     }
@@ -37,9 +41,15 @@ public class RoomMapperImpl implements RoomMapper {
 
         RoomResponse.RoomResponseBuilder roomResponse = RoomResponse.builder();
 
-        roomResponse.roomNumber( room.getRoomNumber() );
+        if ( room.getId() != null ) {
+            roomResponse.id( room.getId() );
+        }
         roomResponse.floor( room.getFloor() );
+        roomResponse.roomNumber( room.getRoomNumber() );
         roomResponse.peopleCount( room.getPeopleCount() );
+        roomResponse.area( room.getArea() );
+        roomResponse.roomType( room.getRoomType() );
+        roomResponse.status( room.getStatus() );
 
         return roomResponse.build();
     }
@@ -53,5 +63,9 @@ public class RoomMapperImpl implements RoomMapper {
         room.setRoomNumber( request.getRoomNumber() );
         room.setFloor( request.getFloor() );
         room.setPeopleCount( request.getPeopleCount() );
+        room.setResidentCount( request.getResidentCount() );
+        room.setArea( request.getArea() );
+        room.setRoomType( request.getRoomType() );
+        room.setStatus( request.getStatus() );
     }
 }

@@ -2,6 +2,7 @@ package com.bluemoonproject.controller;
 
 import com.bluemoonproject.dto.request.*;
 import com.bluemoonproject.dto.response.ApiResponse;
+import com.bluemoonproject.dto.response.ResidentInfoResponse;
 import com.bluemoonproject.dto.response.RoomResponse;
 import com.bluemoonproject.entity.Room;
 import com.bluemoonproject.enums.RoomStatus;
