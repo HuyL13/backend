@@ -7,7 +7,8 @@ import com.bluemoonproject.validator.ValidVehicle;
 public class VehicleValidator implements ConstraintValidator<ValidVehicle, Vehicle> {
 
     private static final String CAR_PATTERN = "^(?:[1-9][1-9])[A-Z]-\\d{3}\\.\\d{2}$";
-    private static final String MOTORBIKE_PATTERN = "^\\d{2}[A-Z]\\d-\\d{3}\\.\\d{2}$\n";
+    private static final String MOTORBIKE_PATTERN = "^\\d{2}[A-Z]\\d-\\d{3}\\.\\d{2}$";
+
 
     @Override
     public boolean isValid(Vehicle vehicle, ConstraintValidatorContext context) {
