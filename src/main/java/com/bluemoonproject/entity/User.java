@@ -1,5 +1,6 @@
 package com.bluemoonproject.entity;
 
+import com.bluemoonproject.enums.ResidencyStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,12 +17,12 @@ import java.util.Set;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
-@Table(name="users")
+@Table(name = "users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-//
+    //
     String username;
     String password;
 
@@ -29,12 +30,13 @@ public class User {
     String lastName;
     LocalDate dob;
 
-
     String email;
 
     @ManyToMany
     Set<Role> roles;
 
+    @Enumerated(EnumType.STRING)
+    private ResidencyStatus  residencyStatus = ResidencyStatus.THUONG_TRU;
 
 
 }

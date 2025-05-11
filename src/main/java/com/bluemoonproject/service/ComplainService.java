@@ -48,6 +48,7 @@ public class ComplainService {
         String name=context.getAuthentication().getName();
 
         User user=userRepository.findByUsername(name).orElseThrow(()->new AppException(ErrorCode.USER_NOT_EXISTS));
+
         complain.setUserIds(new HashSet<>(Collections.singletonList(user.getId())));
 
         if (attachment != null && !attachment.isEmpty()) {
@@ -59,10 +60,18 @@ public class ComplainService {
     }
 
     public Complain addUserToComplain(Long complainId, Long userId) {
-        Complain complain = complainRepository.findById(complainId).orElseThrow(() -> new RuntimeException("Complain not found"));
+        Complain complain = complainRepository.findById(complainId)
+                .orElseThrow(() -> new RuntimeException("Complain not found"));
+
+        // Check if the user exists
+        if (!userRepository.existsById(userId)) {
+            throw new RuntimeException("User not found");
+        }
+
         complain.getUserIds().add(userId);
         return complainRepository.save(complain);
     }
+
 
     public List<ComplainUserViewDTO> getComplainsForUser() {
         var context= SecurityContextHolder.getContext();

@@ -15,7 +15,7 @@ public class OtpService {
 
     private final JavaMailSender mailSender;
     private final Map<String, String> otpStorage = new ConcurrentHashMap<>(); // Temporary in-memory storage
-//
+    //
     public String generateOtp(String email) {
         String otp = String.valueOf(new Random().nextInt(900000) + 100000); // 6-digit OTP
         otpStorage.put(email, otp); // Store OTP

@@ -16,6 +16,7 @@ public interface RoomMapper {
 
     Room toRoom(RoomRequest request);
 
+    @Mapping(target = "id", source = "id")
     RoomResponse toRoomResponse(Room room);
 
     @Mapping(target = "id", ignore = true) // ID should not be updated

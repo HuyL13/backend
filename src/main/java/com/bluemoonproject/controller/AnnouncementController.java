@@ -4,6 +4,7 @@ import com.bluemoonproject.entity.Announcement;
 import com.bluemoonproject.entity.Fee;
 import com.bluemoonproject.entity.Room;
 import com.bluemoonproject.entity.User;
+import com.bluemoonproject.enums.AnnounceType;
 import com.bluemoonproject.enums.FeeStatus;
 import com.bluemoonproject.repository.FeeRepository;
 import com.bluemoonproject.repository.RoomRepository;
@@ -44,25 +45,33 @@ public class AnnouncementController {
     @PostMapping("/sendToSpecific")
     public ResponseEntity<String> sendAnnouncementToSpecificUsers(@RequestBody SendAnnouncementRequest request) {
         try {
-            announcementService.sendAnnouncementToSpecificUsers(request.getAnnouncement(), request.getUsers());
+            announcementService.sendAnnouncementToSpecificUsers(request.getDescription(),request.getType(), request.getUsers());
             return ResponseEntity.ok("Announcement sent to specified users successfully.");
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body("Failed to send announcement: " + e.getMessage());
         }
     }
 
-    // Request DTO for sending to specific users
+
     public static class SendAnnouncementRequest {
-        private Announcement announcement;
+        private String description;
+        private AnnounceType type;
         private List<Long> users;
 
-        // getters and setters
-        public Announcement getAnnouncement() {
-            return announcement;
+        public String getDescription() {
+            return description;
         }
 
-        public void setAnnouncement(Announcement announcement) {
-            this.announcement = announcement;
+        public void setDescription(String description) {
+            this.description = description;
+        }
+
+        public AnnounceType getType() {
+            return type;
+        }
+
+        public void setType(AnnounceType type) {
+            this.type = type;
         }
 
         public List<Long> getUsers() {
@@ -128,6 +137,12 @@ public class AnnouncementController {
                     "Thank you.";
             announcementService.sendEmail(user.getEmail(), subject, body);
         }
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Announcement>> getAllAnnouncements() {
+        List<Announcement> announcements = announcementService.getAllAnnouncements();
+        return ResponseEntity.ok(announcements);
     }
 
 }

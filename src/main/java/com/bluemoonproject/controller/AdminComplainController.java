@@ -1,6 +1,7 @@
 package com.bluemoonproject.controller;
 
 import com.bluemoonproject.entity.Complain;
+import com.bluemoonproject.enums.ComplainTopic;
 import com.bluemoonproject.enums.Priority;
 import com.bluemoonproject.enums.Status;
 import com.bluemoonproject.service.AdminComplainService;
@@ -38,8 +39,12 @@ public class AdminComplainController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Complain>> getAllComplains() {
-        List<Complain> complains = adminComplainService.getAllComplains();
+    public ResponseEntity<List<Complain>> getAllComplains(
+            @RequestParam(required = false) Status status,
+            @RequestParam(required = false) Priority priority,
+            @RequestParam(required = false) ComplainTopic type
+    ) {
+        List<Complain> complains = adminComplainService.getAllComplains(status, priority, type);
         return ResponseEntity.ok(complains);
     }
 }

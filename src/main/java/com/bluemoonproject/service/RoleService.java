@@ -22,7 +22,7 @@ public class RoleService {
     RoleRepository roleRepository;
     private final RoleMapper roleMapper;
     private final PermissionRepository permissionRepository;
-//
+    //
     public RoleResponse create(RoleRequest request) {
         var role = roleMapper.toRole(request);
         var permissions= permissionRepository.findAllById(request.getPermissions());

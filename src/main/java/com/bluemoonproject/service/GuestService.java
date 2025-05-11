@@ -10,7 +10,7 @@ import java.util.List;
 
 @Service
 public class GuestService {
-//
+    //
     private final GuestRepository guestRepository;
 
     public GuestService(GuestRepository guestRepository) {

@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import com.bluemoonproject.constant.PredefinedRole;
+import com.bluemoonproject.enums.PredefinedRole;
 import com.bluemoonproject.entity.Role;
 import com.bluemoonproject.entity.User;
 import com.bluemoonproject.repository.RoleRepository;
@@ -24,7 +24,7 @@ import java.util.HashSet;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @Slf4j
 public class ApplicationInitConfig {
-//
+    //
     PasswordEncoder passwordEncoder;
 
     @NonFinal

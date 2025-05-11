@@ -12,7 +12,13 @@ public class PasswordValidator implements ConstraintValidator<PasswordConstraint
 
     @Override
     public boolean isValid(String password, ConstraintValidatorContext context) {
-        return password != null && pattern.matcher(password).matches();
+        // Allow null or empty password (i.e., not required)
+        if (password == null || password.isBlank()) {
+            return true;
+        }
+
+        // Validate if provided
+        return pattern.matcher(password).matches();
     }
 }
-//
+

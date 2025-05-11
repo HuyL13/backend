@@ -1,23 +1,19 @@
 package com.bluemoonproject.controller;
 
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
-import com.bluemoonproject.dto.request.UserActivateRequest;
 import com.bluemoonproject.entity.Fee;
 import com.bluemoonproject.entity.Guest;
 import com.bluemoonproject.entity.Room;
 import com.bluemoonproject.entity.User;
+import com.bluemoonproject.enums.ResidencyStatus;
 import com.bluemoonproject.service.GuestService;
 import jakarta.validation.Valid;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.web.bind.annotation.*;
 
-import com.bluemoonproject.dto.request.ApiResponse;
+import com.bluemoonproject.dto.response.ApiResponse;
 import com.bluemoonproject.dto.request.UserCreationRequest;
 import com.bluemoonproject.dto.request.UserUpdateRequest;
 import com.bluemoonproject.dto.response.UserResponse;
@@ -38,7 +34,7 @@ public class UserController {
     UserService userService;
     GuestService guestService;
 
-//
+    //
     @PostMapping     //taoj người
     ApiResponse<UserResponse> createUser(@RequestBody @Valid UserCreationRequest request) {
         return ApiResponse.<UserResponse>builder()
@@ -77,7 +73,7 @@ public class UserController {
     }
 
     @PutMapping("/{userId}")
-    ApiResponse<UserResponse> updateUser(@PathVariable Long userId, @RequestBody UserUpdateRequest request) {
+    ApiResponse<UserResponse> updateUser(@PathVariable Long userId, @RequestBody @Valid UserUpdateRequest request) {
         return ApiResponse.<UserResponse>builder()
                 .result(userService.updateUser(userId, request))
                 .build();
@@ -104,7 +100,7 @@ public class UserController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<Guest> createAccount(@RequestBody Guest guest) {
+    public ResponseEntity<Guest> createAccount(@RequestBody @Valid Guest guest) {
         Guest newGuest = guestService.createAccount(guest.getUsername(), guest.getPassword(), guest.getFirstName(),
                 guest.getLastName(), guest.getDob(), guest.getEmail());
         return ResponseEntity.ok(newGuest);
@@ -121,5 +117,12 @@ public class UserController {
     public ResponseEntity<List<Guest>> getGuestsForUser( ) {
         List<Guest> guests=guestService.getAllGuests();
         return ResponseEntity.ok(guests);
+    }
+
+    @GetMapping("/admin/user/{residencyStatus}")
+    public ApiResponse<List<UserResponse>> getUsersByResidencyStatus(@PathVariable ResidencyStatus residencyStatus) {
+        return ApiResponse.<List<UserResponse>>builder()
+                .result(userService.findUserByResidencyStatus(residencyStatus))
+                .build();
     }
 }

@@ -1,6 +1,6 @@
 package com.bluemoonproject.controller;
 
-import com.bluemoonproject.dto.request.ApiResponse;
+import com.bluemoonproject.dto.response.ApiResponse;
 import com.bluemoonproject.dto.request.PermissionRequest;
 import com.bluemoonproject.dto.response.PermissionResponse;
 import com.bluemoonproject.service.PermissionService;
@@ -19,7 +19,7 @@ import java.util.List;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class PermissionController {
     PermissionService permissionService;
-//
+    //
     //endpoint:.../permissions
     @PostMapping
     ApiResponse<PermissionResponse> create(@RequestBody PermissionRequest request) {

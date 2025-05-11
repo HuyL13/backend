@@ -1,6 +1,6 @@
 package com.bluemoonproject.controller;
 
-import com.bluemoonproject.dto.request.ApiResponse;
+import com.bluemoonproject.dto.response.ApiResponse;
 import com.bluemoonproject.dto.request.RoleRequest;
 import com.bluemoonproject.dto.response.RoleResponse;
 import com.bluemoonproject.service.RoleService;
@@ -19,7 +19,7 @@ import java.util.List;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class RoleController {
     RoleService roleService;
-//
+    //
     @PostMapping
     ApiResponse<RoleResponse> create(@RequestBody RoleRequest request) {
         return ApiResponse.<RoleResponse>builder().result(roleService.create(request)).build();

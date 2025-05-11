@@ -1,5 +1,6 @@
 package com.bluemoonproject.dto.response;
 
+import com.bluemoonproject.enums.ResidencyStatus;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -19,6 +20,9 @@ public class UserResponse {
     String lastName;
     String email;
     LocalDate dob;
-//
+    //
     Set<RoleResponse> roles;
+
+    ResidencyStatus residencyStatus;
+
 }

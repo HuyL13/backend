@@ -13,6 +13,8 @@ import org.mapstruct.MappingTarget;
 @Mapper(componentModel = "spring")
 public interface UserMapper {
     User toUser(UserCreationRequest request);
+
+    @Mapping(target = "residencyStatus", source = "residencyStatus")  // ánh xạ thủ công (nếu cần
     UserResponse toUserResponse(User user);
 
     @Mapping(target="roles",ignore=true)

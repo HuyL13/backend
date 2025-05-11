@@ -1,6 +1,5 @@
 package com.bluemoonproject.controller;
 
-import com.bluemoonproject.dto.request.ApiResponse;
 import com.bluemoonproject.dto.request.FeeUpdateRequest;
 import com.bluemoonproject.dto.request.FeeUploadRequest;
 import com.bluemoonproject.entity.Fee;
@@ -30,10 +29,20 @@ public class FeeController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<Fee> addFee(@RequestParam String roomNumber,
-                                      @RequestParam String description,
-                                      @RequestParam Double amount,
-                                      @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dueDate) {
+    public ResponseEntity<?> addFee(@RequestParam String roomNumber,
+                                    @RequestParam String description,
+                                    @RequestParam Double amount,
+                                    @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dueDate) {
+        if (description == null || description.trim().isEmpty()) {
+            return ResponseEntity.badRequest().body("Description must not be null or empty.");
+        }
+        if (amount == null || amount <= 1000) {
+            return ResponseEntity.badRequest().body("Amount must be greater than 1000.");
+        }
+        if (dueDate == null || !dueDate.isAfter(LocalDate.now())) {
+            return ResponseEntity.badRequest().body("Due date must be in the future.");
+        }
+
         log.info("Add fee for room number " + roomNumber + " and description " + description);
         Fee fee = feeService.addFee(roomNumber, description, amount, dueDate);
         return ResponseEntity.ok(fee);
@@ -52,7 +61,7 @@ public class FeeController {
         return ResponseEntity.ok("Fee deleted successfully");
     }
     @PutMapping("/{id}")
-    public ResponseEntity<Fee> updateFee(@PathVariable Long id, @RequestBody FeeUpdateRequest request) {
+    public ResponseEntity<Fee> updateFee(@PathVariable Long id, @RequestBody @Valid FeeUpdateRequest request) {
         Fee updatedFee = feeService.updateFee(id, request);
         return ResponseEntity.ok(updatedFee);
     }
@@ -64,7 +73,7 @@ public class FeeController {
 
     @PostMapping("/upload")
     public ResponseEntity<?> uploadFees(
-            @Valid @ModelAttribute FeeUploadRequest dto,
+            @Valid @ModelAttribute  FeeUploadRequest dto,
             @RequestParam("file") MultipartFile file) {
 
         try {

@@ -1,6 +1,6 @@
 package com.bluemoonproject.validator;
 
-import com.nimbusds.jose.Payload;
+import jakarta.validation.Payload;
 import jakarta.validation.Constraint;
 
 import java.lang.annotation.Retention;

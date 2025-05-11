@@ -28,7 +28,6 @@ public class UserComplainController {
     public ResponseEntity<Complain> createComplain(
             @RequestParam String description,
             @RequestParam ComplainTopic type,
-
             @RequestParam(required = false) MultipartFile attachment) throws IOException { // Optional attachment
         Complain complain = complainService.createComplain(description, type, attachment);
         return ResponseEntity.status(HttpStatus.CREATED).body(complain);
