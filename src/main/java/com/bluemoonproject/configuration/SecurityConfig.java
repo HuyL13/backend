@@ -35,7 +35,7 @@ public class SecurityConfig {
         httpSecurity
                 .cors(cors -> cors.configurationSource(request -> {
                     CorsConfiguration config = new CorsConfiguration();
-                    config.addAllowedOrigin("https://huyl13.github.io/frontend");
+                    config.addAllowedOrigin("https://huyl13.github.io");
                     config.addAllowedOrigin("http://localhost:3000");// Allow frontend
                     config.addAllowedMethod("*"); // Allow all methods (GET, POST, OPTIONS, etc.)
                     config.addAllowedHeader("*"); // Allow all headers
