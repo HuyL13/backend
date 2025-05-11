@@ -22,6 +22,7 @@ public class VehicleController {
 
     private final VehicleService vehicleService;
     private final ParkingLotService parkingLotService;
+
     @PostMapping("/room/{roomId}")
     public ResponseEntity<?> createVehicleForRoom(
             @PathVariable Long roomId,
