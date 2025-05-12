@@ -6,6 +6,7 @@ import com.bluemoonproject.entity.ContributionRecord;
 import com.bluemoonproject.entity.Fee;
 import com.bluemoonproject.entity.Room;
 import com.bluemoonproject.entity.User;
+import com.bluemoonproject.enums.ResidencyStatus;
 import com.bluemoonproject.enums.RoomStatus;
 import com.bluemoonproject.enums.RoomType;
 import com.bluemoonproject.repository.ContributionRecordRepository;
@@ -26,8 +27,8 @@ public class SearchBarService {
     @Autowired
     private UserRepository userRepository;
 
-    public Page<User> searchUsers(String username, String firstName, String lastName, String email, Pageable pageable) {
-        return userRepository.findUsersBySearchParams(username, firstName, lastName, email, pageable);
+    public Page<User> searchUsers(String username, String firstName, String lastName, String email, ResidencyStatus residencyStatus, Pageable pageable) {
+        return userRepository.findUsersBySearchParams(username, firstName, lastName, email, residencyStatus, pageable);
     }
 
     @Autowired

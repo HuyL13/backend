@@ -31,6 +31,7 @@ public class SearchBarController {
                 criteria.getFirstName(),
                 criteria.getLastName(),
                 criteria.getEmail(),
+                criteria.getResidencyStatus(),
                 pageable
         );
     }

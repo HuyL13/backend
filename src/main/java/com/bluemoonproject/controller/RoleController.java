@@ -32,6 +32,7 @@ public class RoleController {
                 .build();
     }
 
+
     @DeleteMapping("/{permission}")
     ApiResponse<Void> delete(@PathVariable String role) {
         roleService.delete(role);
