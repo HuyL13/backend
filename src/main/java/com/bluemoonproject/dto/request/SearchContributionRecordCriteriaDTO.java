@@ -3,6 +3,7 @@ package com.bluemoonproject.dto.request;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter
@@ -17,8 +18,10 @@ public class SearchContributionRecordCriteriaDTO {
 
     private Double minAmount;
     private Double maxAmount;              // Số tiền đóng góp
+    // Ngày đóng góp
 
-    private LocalDateTime contributedAt; // Ngày đóng góp
+    private LocalDate fromDate;   // Ngày bắt đầu lọc
+    private LocalDate toDate;     // Ngày kết thúc lọc
 
     private Boolean approved;           // Trạng thái duyệt
 }

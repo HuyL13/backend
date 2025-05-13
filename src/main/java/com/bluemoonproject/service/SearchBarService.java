@@ -19,6 +19,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 @Service
@@ -59,15 +60,25 @@ public class SearchBarService {
     private ContributionRecordRepository contributionRecordRepository;
 
     public Page<ContributionRecord> searchContributionRecords(SearchContributionRecordCriteriaDTO criteria, Pageable pageable) {
+        LocalDateTime fromDateTime = criteria.getFromDate() != null
+                ? criteria.getFromDate().atStartOfDay()
+                : null;
+
+        LocalDateTime toDateTime = criteria.getToDate() != null
+                ? criteria.getToDate().atTime(LocalTime.MAX) // 23:59:59.999999999
+                : null;
+
         return contributionRecordRepository.findContributionRecordsBySearchParams(
                 criteria.getId(),
                 criteria.getContributionId(),
                 criteria.getUserId(),
                 criteria.getMinAmount(),
                 criteria.getMaxAmount(),
-                criteria.getContributedAt(),
+                fromDateTime,
+                toDateTime,
                 criteria.getApproved(),
                 pageable
         );
     }
+
 }
