@@ -15,7 +15,8 @@ public class SearchContributionRecordCriteriaDTO {
 
     private Long contributionId;        // ID của khoản đóng góp (khóa ngoại)
 
-    private Double amount;              // Số tiền đóng góp
+    private Double minAmount;
+    private Double maxAmount;              // Số tiền đóng góp
 
     private LocalDateTime contributedAt; // Ngày đóng góp
 

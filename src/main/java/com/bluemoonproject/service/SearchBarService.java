@@ -63,7 +63,8 @@ public class SearchBarService {
                 criteria.getId(),
                 criteria.getContributionId(),
                 criteria.getUserId(),
-                criteria.getAmount(),
+                criteria.getMinAmount(),
+                criteria.getMaxAmount(),
                 criteria.getContributedAt(),
                 criteria.getApproved(),
                 pageable
