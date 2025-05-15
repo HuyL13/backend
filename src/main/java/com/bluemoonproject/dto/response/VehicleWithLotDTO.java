@@ -10,11 +10,13 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class VehicleWithLotDTO {
+    private Long id;
     private String licensePlate;
     private Vehicle.Type type;
     private String lotNumber; // null if not assigned
 
-    public VehicleWithLotDTO(String licensePlate, Vehicle.Type type, String lotNumber) {
+    public VehicleWithLotDTO(Long id, String licensePlate, Vehicle.Type type, String lotNumber) {
+        this.id=id;
         this.licensePlate = licensePlate;
         this.type = type;
         this.lotNumber = lotNumber;

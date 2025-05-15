@@ -185,6 +185,7 @@ public class ParkingLotService {
 
         return vehicles.stream()
                 .map(v -> new VehicleWithLotDTO(
+                        v.getId(),
                         v.getLicensePlate(),
                         v.getType(),
                         vehicleToLotMap.getOrDefault(v.getId(), null)))
