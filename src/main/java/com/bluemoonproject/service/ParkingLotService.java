@@ -115,17 +115,17 @@ public class ParkingLotService {
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new IllegalStateException("User not found"));
 
-        Room room = roomRepository.findByUserIds(user.getId())
-                .orElseThrow(() -> new IllegalStateException("User is not assigned to any room"));
-
-        // Step 3: Check if vehicle belongs to the user's room
-        if (!room.getVehicleIds().contains(vehicleId)) {
-            throw new IllegalStateException("This vehicle does not belong to your room");
+        List<Room> rooms = roomRepository.findRoomsByUserId(user.getId());
+        if (rooms.isEmpty()) {
+            throw new IllegalStateException("User is not assigned to any room");
         }
+        // Step 3: Check if vehicle belongs to the user's room
+        Room owningRoom = rooms.stream()
+                .filter(r -> r.getVehicleIds().contains(vehicleId))
+                .findFirst()
+                .orElseThrow(() -> new IllegalStateException("This vehicle does not belong to your room"));
 
-        // Step 4: Remove vehicle from room
-        room.getVehicleIds().remove(vehicleId);
-        roomRepository.save(room);
+
 
         // Step 5: Unassign vehicle from parking lot
         Optional<ParkingLot> optionalLot = parkingLotRepository.findAll().stream()
@@ -141,13 +141,7 @@ public class ParkingLotService {
         lot.setOccupied(false);
         parkingLotRepository.save(lot);
 
-        // Step 6: Optionally delete vehicle if not in any other room
-        boolean stillAssigned = roomRepository.findAll().stream()
-                .anyMatch(r -> r.getVehicleIds().contains(vehicleId));
 
-        if (!stillAssigned) {
-            vehicleRepository.deleteById(vehicleId);
-        }
 
         return lot;
     }

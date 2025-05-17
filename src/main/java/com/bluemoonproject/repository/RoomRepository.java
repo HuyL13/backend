@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 
@@ -40,6 +41,8 @@ public interface RoomRepository extends JpaRepository<Room, Long> {
     Page<Room> findRoomsBySearchParams(String roomNumber, Integer floor, Long peopleCount, Long residentCount,
                                        Double area, RoomType roomType, RoomStatus status, Pageable pageable);
 
-    Optional<Room> findByUserIds(Long userId);
+    @Query("SELECT r FROM Room r WHERE :userId MEMBER OF r.userIds")
+    List<Room> findRoomsByUserId(@Param("userId") Long userId);
+
 
 }
