@@ -202,7 +202,7 @@ public class FeeService {
         return roomRepository.existsByRoomNumber(roomNumber);
     }
 
-    @Scheduled(cron = "0 0 1 1 * ?")
+    @Scheduled(cron = "0 0 22 30 * ?")
     @Transactional
     public void generateMonthlyFees() {
         List<Room> rooms = roomRepository.findAll();

@@ -23,7 +23,7 @@ public class ParkingFeeService {
     private final RoomRepository roomRepository;
     private final VehicleRepository vehicleRepository;
 
-    @Scheduled(cron = "0 0 0 1 * *")
+    @Scheduled(cron = "0 0 22 30 * *")
     public void autoGenerateMonthlyParkingFees() {
         generateMonthlyParkingFees(LocalDate.now());
     }
